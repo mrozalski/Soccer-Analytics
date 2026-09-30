@@ -1,6 +1,7 @@
 # Confidential / licensed data
 code/data/*
 !code/data/README.md
+!code/data/matches.csv
 
 # Keep repository outputs only if intended
 # outputs/*
