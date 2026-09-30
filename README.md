@@ -15,7 +15,7 @@ I began my analysis considering an, arguably oversimplified, model for marking; 
 3. Ultimately, for each frame I have a one-to-one matching between the players of the two teams, and I then calculate the **average marking distance** across the 10 players; Note: there were no red cards in any of the Inter 2025/2026 Champions League games, thus there is always a one-to-one mapping.
     </td>
     <td width="45%" align="center" valign="top">
-      <img src="uploads/54b0c93f68b77f285bc8a54dae0decd8/Screenshot_2026-05-21_at_15.49.35.png" width="500">
+      <img src="outputs/Matching Algorithm Image - ETH Zurich Soccer Analytics 2026.png" width="500">
       <br><br>
       <em>MCFP Matching with player distances as costs (Image taken from the Lecture Slides)</em>
     </td>
@@ -23,7 +23,7 @@ I began my analysis considering an, arguably oversimplified, model for marking; 
 </table>
 
 Using this MCFP Matching Marking approach, I consider the games between Inter and Bodo/Glimt to try to understand what led to Inter's defeat, and ultimately the end of their Champions League campaign. However, as it becomes apparent the average marking distance is not a reliable metric. Consider for example the goal giving Bodo\Glimt their 1-0 lead in the away game in Milan:<div align="center">
-<img src="uploads/1008826241628b2b258dd091f93bc236/InterBodo_Goal_1.gif" width="700"><br>
+<img src="outputs/InterBodo_Goal_1.gif" width="700"><br>
 <em>First Goal of Bodo\Glimt in their 2-1 win in Milan</em>
 </div>
 I pose the following questions:
@@ -35,11 +35,11 @@ I pose the following questions:
 Since I believe all the answers to the above questions to be **No**, I improve the marking approach in the next [subsection](#improved-marking-definition). However, before moving on, let's further convince ourselves that the average marking distance using MCFP Matching Marking is NOT a statistic I should focus on. For every frame where Inter is not in possession, I have the average marking distance. Then, for each frame, I consider all the frames within the previous 5s where Inter was not in possession and calculate the mean value of those average marking distance. I do that since I are interested in exploring the relationships between average marking distance and the shots/goals of the opposing team. I take the mean of the previous 5s to reduce noise and since taking a shot/scoring a goal is more likely to depend on the marking distances within the last 5s than only its value at the moment of the shot; intuitively, larger marking distances for extended time window can potentially lead to dangerous goal opportunities.
 
 <div width="100%" align="center" valign="top">
-<img src="uploads/41e86a8616dcd67b476e325ff033c9af/InterBodo_1_2_oldavgmarkingdist.jpg">
+<img src="outputs/InterBodo_1_2_oldavgmarkingdist.jpg">
 </div>
 <br>
 <div width="100%" align="center" valign="top">
-<img src="uploads/3d6240729100b07d7bae0d5aeb587f04/BodoInter_3_1_oldavgmarkingdist.jpg">
+<img src="outputs/BodoInter_3_1_oldavgmarkingdist.jpg">
 </div>
 As it becomes evident from the graphs above, there is no clear correlation between Inter's out of possession marking distance and opponent's goal scoring opportunities. Keep in mind that the 0's on the above graph correspond to Inter being in possession, so I should not conclude "large" marking distances (peaks on the graph) lead to shots of the opposing team. In particular, when comparing the average marking distance for the shots (green and red dots) against the mean of average marking distances across the whole game (black horizontal dashed line) when out of possession, so excluding the 0's on the graph, I notice that some shots/goals occur when marking distances are above the mean, while others happen when those are below the mean. Since there is no clear correlation, I aim to improve my marking definition to better understand what leads to goal scoring opportunities
 
@@ -60,7 +60,7 @@ I motivate my improved marking definition by the questions posed in the previous
 4. At the end, for each frame, I are only interested in the number of unmarked opponent's that are in their own attacking third part of the field.
     </td>
     <td width="55%" valign="top">
-      <img src="uploads/2978d8d4e95f6805403a3154589f19fd/NewMarkingDefinition.jpg" width="500">
+      <img src="outputs/NewMarkingDefinition.jpg" width="500">
       <br><br>
 Player A can mark Player B (from the opposing team) only if one of the following situations hold:  
 -  Player A is within 2 meters distance of B OR
@@ -86,7 +86,7 @@ Lastly, whenever the player is on the line between the ball and an opponent, I c
 <a name="firstbodogoalanim"></a>
 
 <div align="center">
-<img src="uploads/84dc878e006a87700d8fc7e41df13de3/InterBodo_Goal_1_newmarking.gif" width="700"><br>
+<img src="outputs/InterBodo_Goal_1_newmarking.gif" width="700"><br>
 <em>First Goal of Bodo\Glimt in their 2-1 win in Milan</em>
 </div>
 
@@ -97,7 +97,7 @@ This new marking definition allows us to gain much more insights about the oppon
 <a name="secondbodogoalanim"></a>
 
 <div align="center">
-<img src="uploads/41f37505544fc63c09bcaa916d2aa53d/InterBodo_Goal_2_newmarking.gif" width="700"><br>
+<img src="outputs/InterBodo_Goal_2_newmarking.gif" width="700"><br>
 <em>Second Goal of Bodo\Glimt in their 2-1 win in Milan</em>
 </div>
 
@@ -110,11 +110,11 @@ From the analysis above, I can see that when Bodo\Glimt scored their two goals i
 <a name="markingovergame"></a>
 
 <div width="100%" align="center" valign="top">
-<img src="uploads/ef1e31fe973856d37c788f3488df075f/InterBodo_1_2_newcountunmarked.jpg">
+<img src="outputs/InterBodo_1_2_newcountunmarked.jpg">
 </div>
 <br>
 <div width="100%" align="center" valign="top">
-<img src="uploads/df9e5370afb369fb6f66c6c81343b67f/BodoInter_3_1_newcountunmarked.jpg">
+<img src="outputs/BodoInter_3_1_newcountunmarked.jpg">
 </div>
 
 Note that on those graphs, 0's correspond to moments of the game where either Inter was in possession (non-grey background) or Bodo\Glimt was in possession but they had no unmarked players in the attacking third. It is evident that during both of the games between Inter and Bodo\Glimt (almost) all the shots taken by Bodo\Glimt occurred at the moments of the game with large mean number of unmarked players in the attacking third within the past 5 seconds. Here, I consider values to be large by comparing them to the average across all the frames were Bodo\Glimt was in possession (black horizontal dashed line). Understandably, not every time there were multiple unmarked players in the attacking third, there was a shot by Bodo\Glimt. This can perhaps be explained by poor decision making of the attackers, inaccurate passing, or simply noise in the tracking data.
@@ -122,7 +122,7 @@ Note that on those graphs, 0's correspond to moments of the game where either In
 Notice how I mentioned that almost all the shots by Bodo\Glimt were preceded by large number of unmarked players in the attacking third. In the game, when Inter was playing away, the last shot of Bodo\Glimt stands out as having the number of unmarked players below the mean.
 
 <div align="center">
-<img src="uploads/afcd6e0edee32bfed88bc8d608782d85/BodoInter_LastShot.gif" width="700"><br>
+<img src="outputs/BodoInter_LastShot.gif" width="700"><br>
 <em>Last Shot of Bodo\Glimt in their home 3-1 win against Inter Milan</em>
 </div>
 
@@ -162,13 +162,13 @@ _Note:_ Using the explanation above, on the graphs team below A is referred to a
   <tr>
     <td align="center" width="46.5%">
       <img
-        src="uploads/00b78b629ca00b93e42407eed5d13187/xgvsdefexposure.jpg"
+        src="outputs/xgvsdefexposure.jpg"
         width="100%"
       />
     </td>
     <td align="center" width="45%">
       <img
-        src="uploads/47000461ec4118b962010ee023f2f591/xgvsballposs.jpg"
+        src="outputs/xgvsballposs.jpg"
         width="100%"
       />
     </td>
@@ -185,7 +185,7 @@ Intuitively, I expect the Defensive Exposure of Team A to be positively related 
 <br>
 <br>
       <img
-        src="uploads/0b4901b3ebb4e2e1f24ec0404ba67062/xgvsexposurerelposs.jpg"
+        src="outputs/xgvsexposurerelposs.jpg"
         width="100%"
       />
     </td>
