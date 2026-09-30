@@ -2,6 +2,28 @@
 
 In this project, I analyzed Inter Milan's defensive performance through the lenses of out of possession marking. In particular, I propose a specific definition of marking and a measure for overall exposure to opponent's attacks. I also analyze some of the conceded goals by Inter and attempt to gain data driven insights about what led to them in terms of poor team marking.
 
+## Repository Structure
+
+The repository is organised as follows:
+
+```text
+Soccer-Analytics/
+│
+├── README.md
+├── .gitignore
+├── outputs/
+│
+└── code/
+    ├── marking.ipynb
+    └── data/
+        ├── README.md
+        ├── wyscout/
+        ├── statsbomb/
+        ├── skillcorner/
+        ├── league_phase/
+        └── matches.csv
+```
+
 ### Oversimplified Model: Motivation for My Marking Definition
 I began my analysis considering an, arguably oversimplified, model for marking; which I call "MCFP Matching". In this simple approach, I do the following:
 <table>
@@ -252,22 +274,3 @@ Of course, as in any data analysis, I also faced some limitations and found addi
 - I recognize that a count of players left unmarked in the attacking third does not provide a full picture of the danger of the situation, since for example a striker having an open goal in front but being an only unmarked player is a considerably more dangerous situation than having more unmarked players near the corner flag
 - Thus, an area for improvement would include considering a different area other than the attacking third which would also account for the angle to the goal
 - Moreover, I could also allow for multiple defenders to be marking a single opposing player to explore whether there are some possible inefficiencies and propose tactical adjustments
-
-### Code
-
-- $4259 - Code for Animations with the MCFP Matching Marking approach
-- $4255 - Code for the Graphs of Average Marking Distance Over Time
-- $4261 - Code for the Conditions explaining the New Marking definition
-- $4264 - Code for Animations with the New Marking definition
-- $4265 - Code for the Graphs of Unmarked Opponents in the Attacking 3rd Over Time
-- $4272
-    - Code for the Graph of Opponent’s Cumulative xG vs Defensive Exposure
-    - Code for the Graph of Opponent’s Cumulative xG vs Opponent’s Ball Possession %
-    - Code for the Graph of Opponent’s Cumulative xG vs Defensive Exposure Relative to Opponent’s Ball Possession
-    - Code for the OLS regression of Opponent's Expected Goals on Opponent's Ball Possession and the team's total defensive exposure
-    - Code for the table of all the shots of Bodo\Glimt in their 2-1 victory against Inter Milan
-
-_Note_: The code was written with the help of ChatGPT
-
-</details>
-<img width="451" height="704" alt="image" src="https://github.com/user-attachments/assets/c61169f0-5735-49d5-aa0c-911b16769e3f" />
